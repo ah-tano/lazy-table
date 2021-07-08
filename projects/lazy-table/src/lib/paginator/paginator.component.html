@@ -1,0 +1,11 @@
+<div class="paginator">
+  <ul class="paginator__container">
+    <li class="paginator__page"
+        *ngFor="let page of pagesTotal"
+        [class.paginator__page--active]="page === activePage"
+        (click)="selectPage(page)"
+    >
+      {{ page }}
+    </li>
+  </ul>
+</div>

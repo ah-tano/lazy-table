@@ -1,3 +1,27 @@
+## Install
+
+To install run `npm i lt-lazy-table`
+
+# Documentation
+
+Use `<lib-lazy-table></lib-lazy-tabl>` selector to insert table in your project.
+
+###### Inputs:
+
+| Prop             | Type     | Usage                  |
+|:-----------------|:---------|:----------------------:|
+| columns          | IColumn[]| display headers        |
+| tableData        | [ {} ]   | display data           |
+| itemsOnPage      | number   | displayed rows on page |
+| withGlobalFilter | boolean  | display global filter   |
+| withPagination   | boolean  | display pagination     |
+
+`interface IColumn {
+  name: string,
+  field: string,
+  type: 'number' | 'text' | 'date'
+}`
+
 # LazyTable
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.14.

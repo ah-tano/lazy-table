@@ -1,0 +1,42 @@
+<div class="search" *ngIf="withGlobalFilter">
+  <input class="search__input" id="search" placeholder="Global Filter" [formControl]="searchInputControl">
+</div>
+
+<table class="lazy-table">
+  <tr class="lazy-table__row">
+    <th class="lazy-table__header" *ngFor="let col of columns" (click)="onHeaderClick(col)">
+      {{col.name}}
+    </th>
+  </tr>
+
+  <ng-container *ngIf="modifiedArray.length">
+    <ng-container *ngTemplateOutlet="tableDataTmpl; context: { tableData: modifiedArray }"></ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="!modifiedArray.length && searchInputControl.value">
+    <tr class="lazy-table__row">
+      <td class="lazy-table__definition--empty">Ничего не найдено</td>
+    </tr>
+  </ng-container>
+</table>
+
+<ng-template #tableDataTmpl let-tableData="tableData">
+  <tr class="lazy-table__row" *ngFor="let item of tableData">
+    <td class="lazy-table__definition" *ngFor="let col of columns">
+      <ng-container *ngIf="(col.type === 'date')">
+        {{ item[col.field] | date:'d.MM.yyyy' }}
+      </ng-container>
+
+      <ng-container *ngIf="(col.type === 'text' || col.type === 'number')">
+        {{ item[col.field] }}
+      </ng-container>
+    </td>
+  </tr>
+</ng-template>
+
+<lib-paginator *ngIf="withPagination"
+               [totalRecords]="totalRecords"
+               [itemsOnPage]="itemsOnPage"
+               [activePage]="activePage"
+               (pagination)="onPaginationSelect($event)"
+></lib-paginator>
